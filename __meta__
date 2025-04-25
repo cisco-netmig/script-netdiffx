@@ -1,0 +1,10 @@
+{
+    "name": "Netdiffx",
+    "version": "1.0.0",
+    "author": "Sanjeev Krishna",
+    "uuid": "197aaad0-9673-45c9-90a9-6b3f6976a8c9",
+    "tags": [
+        "ConfigDiff",
+        "Auditor"
+    ]
+}

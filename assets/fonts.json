@@ -1,0 +1,37 @@
+{
+  "header": {
+    "font_size": "10",
+	"font_name":"Segoe UI",
+	"align":"center",
+	"valign":"top",
+    "font_color": "#FFFFFF",
+    "bg_color": "#1F4E78"
+  },
+	"body": {
+    "font_size": "10",
+	"font_name":"Segoe UI",
+    "font_color": "#000000",
+	"valign":"top"
+  },
+    "bad": {
+    "font_size": "10",
+	"bold":"True",
+	"font_name":"Segoe UI",
+	"align":"center",
+	"valign":"top"
+  },
+	"bad": {
+	"font_name":"Segoe UI",
+	"font_size": "10",
+    "font_color": "#9C0006",
+	"bg_color": "#FFC7CE",
+	"valign":"top"
+  },
+	"badb": {
+	"font_name":"Segoe UI",
+	"font_size": "10",
+    "font_color": "#000000",
+	"bg_color": "#FFC7CE",
+	"valign":"top"
+  }
+}
