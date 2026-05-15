@@ -1,6 +1,7 @@
-import re
 import logging
+logger = logging.getLogger(__name__)
 
+import re
 
 class ConfigParser:
     """
@@ -18,7 +19,7 @@ class ConfigParser:
         Args:
             raw (str): Raw configuration data to be parsed.
         """
-        logging.info("Initializing ConfigParser...")
+        logger.info("Initializing ConfigParser...")
         self.raw = raw
         self.config = self.parse(raw)
 
@@ -32,7 +33,7 @@ class ConfigParser:
         Returns:
             list: A list representing the parsed configuration.
         """
-        logging.info("Parsing configuration data...")
+        logger.info("Parsing configuration data...")
         lines = raw.splitlines()
         config = []
         line_idx = 0
@@ -58,7 +59,7 @@ class ConfigParser:
 
             line_idx += 1
 
-        logging.info("Configuration parsing completed.")
+        logger.info("Configuration parsing completed.")
         return config
 
     def get_indent(self, posx, lines):
@@ -73,7 +74,7 @@ class ConfigParser:
             int: The number of spaces before the line content.
         """
         indent = len(re.search(r'^\s*', lines[posx]).group())
-        logging.debug(f"Indentation for line {posx}: {indent}")
+        logger.debug(f"Indentation for line {posx}: {indent}")
         return indent
 
     def get_body(self, posx, lines):
@@ -94,7 +95,7 @@ class ConfigParser:
             if curr_indent < indent:
                 break
             body.append(lines[line_idx])
-        logging.debug(f"Body starting from line {posx}: {body}")
+        logger.debug(f"Body starting from line {posx}: {body}")
         return body
 
     def query(self, regex, lines=None):
@@ -123,5 +124,5 @@ class ConfigParser:
                 if re.search(regex, item):
                     result.append(item)
 
-        logging.info(f"Query results for regex '{regex}': {result}")
+        logger.info(f"Query results for regex '{regex}': {result}")
         return result

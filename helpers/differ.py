@@ -1,4 +1,6 @@
 import logging
+logger = logging.getLogger(__name__)
+
 import textdistance
 from .parser import ConfigParser
 
@@ -21,7 +23,7 @@ class ConfigDiffer:
             dest (list): Destination configuration data.
             diff_only (bool): If True, perform diff-only comparison.
         """
-        logging.info("Initializing ConfigDiffer...")
+        logger.info("Initializing ConfigDiffer...")
         self.src = src
         self.dest = dest
         self.src_parser = ConfigParser(self.src)
@@ -120,7 +122,7 @@ class ConfigDiffer:
         """
         Performs a full diff including unchanged, partially matched, and unmatched entries.
         """
-        logging.info("Performing full diff...")
+        logger.info("Performing full diff...")
         self.diff, _ = self._find_diff(self.src_parser.config, self.dest_parser.config)
 
     def _find_diff(self, src_list, dest_list, diff=None, idx=0):
@@ -156,7 +158,7 @@ class ConfigDiffer:
         """
         Performs a diff that includes only differing entries.
         """
-        logging.info("Performing diff-only comparison...")
+        logger.info("Performing diff-only comparison...")
         self.diff, *_ = self._find_diff_only(self.src_parser.config, self.dest_parser.config)
 
     def _find_diff_only(self, src_list, dest_list, scores=None, keys=None, diff=None,

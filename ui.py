@@ -1,6 +1,8 @@
+import logging
+logger = logging.getLogger(__name__)
+
 import os
 import platform
-import logging
 from threading import Thread
 
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -160,11 +162,11 @@ class Form(QtWidgets.QWidget, Ui_Form):
         try:
             file_path = QtWidgets.QFileDialog.getOpenFileName(filter="(*.txt *.cfg)")[0]
             if file_path:
-                logging.info(f"Source file selected: {file_path}")
+                logger.info(f"Source file selected: {file_path}")
                 with open(file_path, 'r') as file:
                     self.source_text_input.setText(file.read())
         except Exception as e:
-            logging.exception(f"Failed to load source file: {e}")
+            logger.exception(f"Failed to load source file: {e}")
 
     def select_dest_file(self):
         """
@@ -173,11 +175,11 @@ class Form(QtWidgets.QWidget, Ui_Form):
         try:
             file_path = QtWidgets.QFileDialog.getOpenFileName(filter="(*.txt *.cfg)")[0]
             if file_path:
-                logging.info(f"Destination file selected: {file_path}")
+                logger.info(f"Destination file selected: {file_path}")
                 with open(file_path, 'r') as file:
                     self.dest_text_input.setText(file.read())
         except Exception as e:
-            logging.exception(f"Failed to load destination file: {e}")
+            logger.exception(f"Failed to load destination file: {e}")
 
     def run_comparison(self):
         """
@@ -189,7 +191,7 @@ class Form(QtWidgets.QWidget, Ui_Form):
             self.run_worker.start()
             self.run_worker.finished.connect(self.run_comparison_finished)
         except Exception as e:
-            logging.exception(f"Failed to start comparison thread: {e}")
+            logger.exception(f"Failed to start comparison thread: {e}")
             self.compare_button.setEnabled(True)
 
     def run_comparison_finished(self):
@@ -208,9 +210,9 @@ class Form(QtWidgets.QWidget, Ui_Form):
         """
         try:
             if path and os.path.exists(path):
-                logging.info(f"Opening path: {path}")
+                logger.info(f"Opening path: {path}")
                 QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(path))
             else:
-                logging.error(f"Invalid or non-existent path: {path}")
+                logger.error(f"Invalid or non-existent path: {path}")
         except Exception as e:
-            logging.exception(f"Failed to open path: {e}")
+            logger.exception(f"Failed to open path: {e}")

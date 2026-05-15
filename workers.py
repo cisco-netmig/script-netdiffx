@@ -1,6 +1,8 @@
+import logging
+logger = logging.getLogger(__name__)
+
 import os
 import json
-import logging
 from datetime import datetime
 from PyQt5 import QtCore
 
@@ -44,7 +46,7 @@ class RunEvent(QtCore.QThread):
             filename = f"{os.path.basename(os.path.dirname(__file__)).title()}_{timestamp}.xlsx"
             self.form.output_report = os.path.join(self.form.output_dir, filename)
 
-            logging.info("Starting configuration comparison...")
+            logger.info("Starting configuration comparison...")
 
             # First run: write full comparison
             self.differ = ConfigDiffer(self.source_text, self.dest_text)
@@ -70,12 +72,15 @@ class RunEvent(QtCore.QThread):
                 self.fonts['bad'], self.fonts['badb'], col_idx=3
             )
 
-            logging.info("Saving report to Excel.")
+            if hasattr(logger, 'savings'):
+                logger.savings(len(self.differ.diff))
+
+            logger.info("Saving report to Excel.")
             self.workbook.close()
-            logging.info("Report generation finished.")
+            logger.info("Report generation finished.")
 
         except Exception as e:
-            logging.exception(f"Error during comparison: {e}")
+            logger.exception(f"Error during comparison: {e}")
 
     def write_input(self):
         """
@@ -103,7 +108,7 @@ class RunEvent(QtCore.QThread):
             )
 
         except Exception as e:
-            logging.exception(f"Error while writing input sections: {e}")
+            logger.exception(f"Error while writing input sections: {e}")
 
     def load_fonts(self):
         """
@@ -118,4 +123,4 @@ class RunEvent(QtCore.QThread):
                 self.fonts[style] = self.workbook.add_format(properties)
 
         except Exception as e:
-            logging.exception(f"Failed to load fonts: {e}")
+            logger.exception(f"Failed to load fonts: {e}")
